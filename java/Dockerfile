@@ -8,4 +8,4 @@ RUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true 
 RUN add-apt-repository ppa:webupd8team/java && apt-get -y -q update
 
 ## Install
-RUN apt-get install -y -q oracle-java7-installer && apt-get -y clean
+RUN apt-get install -y -q oracle-java7-installer && apt-get -y clean && rm /var/cache/oracle-jdk7-installer/*.gz
