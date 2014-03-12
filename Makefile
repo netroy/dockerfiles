@@ -9,36 +9,39 @@ build-ubuntu:
 
 # Image Generation
 build-base:
-	docker build -t base base
+	docker build -rm=true -t base base
 	docker tag base netroy/base
 	docker push netroy/base
 
-build-server:
-	docker build -t $(TYPE) $(TYPE)
+build-image:
+	docker build -rm=true -t $(TYPE) $(TYPE)
 	docker tag $(TYPE) netroy/$(TYPE)
 	docker push netroy/$(TYPE)
 	# docker tag $(TYPE) quay.io/netroy/$(TYPE)
 	# docker push quay.io/netroy/$(TYPE)
 
+build-go:
+	TYPE=go make build-image
+
 build-ruby:
-	TYPE=ruby make build-server
+	TYPE=ruby make build-image
 
 build-nodejs:
-	TYPE=nodejs make build-server
+	TYPE=nodejs make build-image
 
 build-java:
-	TYPE=java make build-server
+	TYPE=java make build-image
 
 build-redis:
-	TYPE=redis make build-server
+	TYPE=redis make build-image
 
 build-postgresql:
-	TYPE=postgresql make build-server
+	TYPE=postgresql make build-image
 
 build-mysql:
-	TYPE=mysql make build-server
+	TYPE=mysql make build-image
 
 build-rabbitmq:
 	TYPE=rabbitmq make build-server
 
-build: build-base build-ruby build-nodejs build-java build-redis build-postgresql build-mysql build-rabbitmq
+build: build-base build-go build-ruby build-nodejs build-java build-redis build-postgresql build-mysql build-rabbitmq
