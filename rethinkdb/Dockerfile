@@ -9,7 +9,7 @@ RUN apt-get install -y -q rethinkdb && apt-get -y clean
 VOLUME ["/var/lib/rethinkdb"]
 
 ## Expose rethinkdb ports
-EXPOSE 8080
+EXPOSE 8080 29015 28015
 
 ## Start rethinkdb when container starts
 cmd ["/usr/bin/rethinkdb", "--bind", "all"]
