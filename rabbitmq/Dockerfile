@@ -18,4 +18,4 @@ EXPOSE 5672 15672 55672
 # Start rabbitmq when the container starts
 ADD run.sh /bin/rabbitmq
 RUN chmod +x /bin/rabbitmq
-CMD ["/bin/rabbitmq"]
+ENTRYPOINT ["/bin/rabbitmq"]

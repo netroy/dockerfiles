@@ -16,4 +16,4 @@ ADD my.cnf /etc/mysql/my.cnf
 # Start mysql when the container starts
 ADD run.sh /bin/mysql
 RUN chmod +x /bin/mysql
-CMD ["/bin/mysql"]
+ENTRYPOINT ["/bin/mysql"]

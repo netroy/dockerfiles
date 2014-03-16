@@ -19,4 +19,4 @@ ADD postgresql.conf /usr/lib/postgresql/postgresql.conf
 # Start postgresql when the container starts
 ADD run.sh /bin/postgresql
 RUN chmod +x /bin/postgresql
-CMD ["/bin/postgresql"]
+ENTRYPOINT ["/bin/postgresql"]
