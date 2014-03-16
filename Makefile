@@ -29,6 +29,9 @@ build-ruby:
 build-nodejs:
 	TYPE=nodejs make build-image
 
+build-python:
+	TYPE=python make build-image
+
 build-java:
 	TYPE=java make build-image
 
@@ -42,6 +45,9 @@ build-mysql:
 	TYPE=mysql make build-image
 
 build-rabbitmq:
-	TYPE=rabbitmq make build-server
+	TYPE=rabbitmq make build-image
 
-build: build-base build-go build-ruby build-nodejs build-java build-redis build-postgresql build-mysql build-rabbitmq
+build-rethinkdb:
+	TYPE=rethinkdb make build-image
+
+build: build-base build-go build-ruby build-nodejs build-python build-java build-redis build-postgresql build-mysql build-rabbitmq rethinkdb
