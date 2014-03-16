@@ -31,7 +31,9 @@ RUN apt-get update && apt-get upgrade -y -q > /dev/null
 RUN apt-get install -y -q git build-essential \
             software-properties-common curl wget libmysqlclient-dev \
             libpq-dev libcurl4-openssl-dev libssl-dev zlib1g-dev \
-            libxslt-dev libxml2-dev
+            libxslt-dev libxml2-dev libjpeg8-dev libfreetype6-dev \
+            liblcms1-dev libwebp-dev libtiff-dev libsqlite3-dev \
+            libbz2-dev
 
 ## Cleanup
 RUN apt-get -y clean
