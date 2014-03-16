@@ -12,4 +12,7 @@ VOLUME ["/var/lib/rethinkdb"]
 EXPOSE 8080 29015 28015
 
 ## Start rethinkdb when container starts
-cmd ["/usr/bin/rethinkdb", "--bind", "all"]
+ADD run.sh /bin/rethinkdb
+RUN chmod +x /bin/rethinkdb
+ENTRYPOINT ["/bin/rethinkdb"]
+CMD []

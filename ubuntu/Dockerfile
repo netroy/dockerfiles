@@ -43,9 +43,3 @@ RUN rm -rf /tmp/* /var/tmp/* /usr/share/man \
 RUN find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'en' \
            ! -name 'de*' !  -name 'es*' ! -name 'ja*' ! -name 'fr*' \
            ! -name 'zh*' |xargs rm -r
-
-## Native libs for gems
-RUN apt-get -y -q install
-
-# Default to bash
-CMD ["/bin/bash"]
