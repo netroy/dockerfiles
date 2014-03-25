@@ -1,4 +1,5 @@
 FROM stackbrew/ubuntu:13.10
+
 MAINTAINER Aditya <aditya@netroy.in>
 
 ## Disable upstart's security crap
@@ -28,12 +29,13 @@ RUN echo "deb http://de.archive.ubuntu.com/ubuntu saucy universe\ndeb http://de.
 RUN apt-get update && apt-get upgrade -y -q > /dev/null
 
 ## Install base packages
-RUN apt-get install -y -q git build-essential \
-            software-properties-common curl wget libmysqlclient-dev \
-            libpq-dev libcurl4-openssl-dev libssl-dev zlib1g-dev \
-            libxslt-dev libxml2-dev libjpeg8-dev libfreetype6-dev \
-            liblcms1-dev libwebp-dev libtiff-dev libsqlite3-dev \
-            libbz2-dev
+RUN apt-get install -y -q git mercurial build-essential \
+            software-properties-common curl wget \
+            libmysqlclient-dev libsqlite3-dev libpq-dev\
+            libcurl4-openssl-dev libssl-dev zlib1g-dev \
+            libxslt-dev libxml2-dev libfreetype6-dev liblcms1-dev \
+            libjpeg8-dev libwebp-dev libtiff-dev\
+            unzip libbz2-dev
 
 ## Cleanup
 RUN apt-get -y clean
