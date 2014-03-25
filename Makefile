@@ -1,6 +1,6 @@
 all: build
 
-build-ubuntu:
+ubuntu:
 	docker build -t netroy/ubuntu ubuntu
 	docker run --name netroy-ubuntu -d netroy/ubuntu /bin/bash
 	docker export netroy-ubuntu | docker import - netroy/ubuntu
@@ -8,46 +8,70 @@ build-ubuntu:
 	docker push netroy/ubuntu
 
 # Image Generation
-build-base:
+base:
 	docker build -rm=true -t base base
 	docker tag base netroy/base
 	docker push netroy/base
 
-build-image:
+image:
 	docker build -rm=true -t $(TYPE) $(TYPE)
 	docker tag $(TYPE) netroy/$(TYPE)
 	docker push netroy/$(TYPE)
 	# docker tag $(TYPE) quay.io/netroy/$(TYPE)
 	# docker push quay.io/netroy/$(TYPE)
 
-build-go:
-	TYPE=go make build-image
+reset-docker:
+	-docker stop $(shell docker ps -a -q)
+	-docker rm $(shell docker ps -a -q)
+	-docker rmi $(shell docker images -a | grep "^<none>" | awk '{print $3}')
 
-build-ruby:
-	TYPE=ruby make build-image
+## Languages
+go:
+	TYPE=go make image
 
-build-nodejs:
-	TYPE=nodejs make build-image
+ruby:
+	TYPE=ruby make image
 
-build-python:
-	TYPE=python make build-image
+nodejs:
+	TYPE=nodejs make image
 
-build-java:
-	TYPE=java make build-image
+python:
+	TYPE=python make image
 
-build-redis:
-	TYPE=redis make build-image
+java:
+	TYPE=java make image
 
-build-postgresql:
-	TYPE=postgresql make build-image
+java8:
+	TYPE=java8 make image
 
-build-mysql:
-	TYPE=mysql make build-image
+scala:
+	TYPE=scala make image
 
-build-rabbitmq:
-	TYPE=rabbitmq make build-image
+## Servers
+redis:
+	TYPE=redis make image
 
-build-rethinkdb:
-	TYPE=rethinkdb make build-image
+postgresql:
+	TYPE=postgresql make image
 
-build: build-base build-go build-ruby build-nodejs build-python build-java build-redis build-postgresql build-mysql build-rabbitmq rethinkdb
+mysql:
+	TYPE=mysql make image
+
+rabbitmq:
+	TYPE=rabbitmq make image
+
+rethinkdb:
+	TYPE=rethinkdb make image
+
+## Frameworks
+typesafe:
+	TYPE=typesafe make image
+
+## Meta tasks
+languages: go ruby nodejs python java java8 scala
+servers: redis postgresql mysql rabbitmq rethinkdb
+frameworks: typesafe
+
+build: base languages servers frameworks
+
+.PHONY: ubuntu base go ruby nodejs python java java8 scala redis postgresql mysql rabbitmq rethinkdb typesafe
