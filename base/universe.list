@@ -1,0 +1,3 @@
+deb http://archive.ubuntu.com/ubuntu/ trusty universe
+deb http://archive.ubuntu.com/ubuntu/ trusty-security universe
+deb http://archive.ubuntu.com/ubuntu/ trusty-updates universe

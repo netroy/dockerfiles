@@ -1,4 +1,4 @@
-FROM stackbrew/ubuntu:13.10
+FROM ubuntu:14.04
 
 MAINTAINER Aditya <aditya@netroy.in>
 
@@ -21,21 +21,14 @@ RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-## Enable universe
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu saucy universe\ndeb http://de.archive.ubuntu.com/ubuntu saucy-security universe\ndeb http://de.archive.ubuntu.com/ubuntu saucy-updates universe" \
-          > /etc/apt/sources.list.d/universe.list
-
 ## Upgrade packages
+ADD sources.list /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y -q > /dev/null
 
 ## Install base packages
-RUN apt-get install -y -q git mercurial build-essential \
-            software-properties-common curl wget \
-            libmysqlclient-dev libsqlite3-dev libpq-dev\
-            libcurl4-openssl-dev libssl-dev zlib1g-dev \
-            libxslt-dev libxml2-dev libfreetype6-dev liblcms1-dev \
-            libjpeg8-dev libwebp-dev libtiff-dev\
-            unzip libbz2-dev
+RUN apt-get install -y -q git build-essential \
+            software-properties-common curl wget unzip\
+            libssl-dev zlib1g-dev libbz2-dev
 
 ## Cleanup
 RUN apt-get -y clean

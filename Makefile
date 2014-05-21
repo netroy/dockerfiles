@@ -1,22 +1,22 @@
 all: build
 
 ubuntu:
-	docker build -t netroy/ubuntu ubuntu
+	docker build --rm=true -t netroy/ubuntu ubuntu
 	docker run --name netroy-ubuntu -d netroy/ubuntu /bin/bash
 	docker export netroy-ubuntu | docker import - netroy/ubuntu
-	docker tag netroy/ubuntu netroy/ubuntu:13.10
+	docker tag netroy/ubuntu netroy/ubuntu:14.04
 	docker push netroy/ubuntu
 
 # Image Generation
 base:
-	docker build -rm=true -t base base
+	docker build --rm=true -t base base
 	docker tag base netroy/base
 	docker push netroy/base
 
 image:
-	docker build -rm=true -t $(TYPE) $(TYPE)
+	docker build --rm=true -t $(TYPE) $(TYPE)
 	docker tag $(TYPE) netroy/$(TYPE)
-	docker push netroy/$(TYPE)
+	# docker push netroy/$(TYPE)
 	# docker tag $(TYPE) quay.io/netroy/$(TYPE)
 	# docker push quay.io/netroy/$(TYPE)
 
